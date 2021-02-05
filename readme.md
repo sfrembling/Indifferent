@@ -6,4 +6,4 @@
 **Alex Gage** @ goaliegage  
 **Herbert Flowers IV** @ herbertflowers-iv  
 **Lee Pederson** @ leepederson  
-**Sean Gerideau** @ (not known currently)   
+**Sean Gerideau** @ Sean9096
