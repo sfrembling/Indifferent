@@ -8,7 +8,8 @@ import 'package:upayme_app/widgets/custom_actionbar.dart';
 import 'package:upayme_app/widgets/image_swipe.dart';
 import 'package:upayme_app/widgets/product_options.dart';
 
-class ProductPage extends StatefulWidget {
+class ProductPage extends StatefulWidget 
+{
   final String productID;
   ProductPage({this.productID});
 
@@ -16,13 +17,15 @@ class ProductPage extends StatefulWidget {
   _ProductPageState createState() => _ProductPageState();
 }
 
-class _ProductPageState extends State<ProductPage> {
+class _ProductPageState extends State<ProductPage> 
+{
 
   FirebaseServices _firebaseServices = FirebaseServices();
 
   String _selectedProductOption = "0";
 
-  Future _addToSaved() {
+  Future _addToSaved() 
+  {
     return _firebaseServices.userRef
         .doc(_firebaseServices.getUID())
         .collection("Saved")
@@ -44,14 +47,17 @@ class _ProductPageState extends State<ProductPage> {
   final SnackBar _snackBar2 = SnackBar(content: Text("Item Saved"),);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       body: Stack(
             children: [
               FutureBuilder(
             future: _firebaseServices.productsRef.doc(widget.productID).get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
+            builder: (context, snapshot)
+                {
+              if (snapshot.hasError) 
+              {
                 return Scaffold(
                   body: Center(
                     child: Text("Error: ${snapshot.error}"),
@@ -60,7 +66,8 @@ class _ProductPageState extends State<ProductPage> {
               }
 
               //Building Map of gathered data
-              if(snapshot.connectionState == ConnectionState.done){
+              if(snapshot.connectionState == ConnectionState.done)
+              {
                 Map<String, dynamic> documentData = snapshot.data.data();
 
                 //List of Images
@@ -123,7 +130,8 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     ProductOptions(
                       productOptions: productOptions,
-                      onSelected: (option) {
+                      onSelected: (option) 
+                      {
                         _selectedProductOption = option;
                       },
                     ),
@@ -134,7 +142,8 @@ class _ProductPageState extends State<ProductPage> {
                         children: [
                           //Building Save Item Button
                           GestureDetector(
-                            onTap: () async {
+                            onTap: () async
+                            {
                               await _addToSaved();
                               Scaffold.of(context).showSnackBar(_snackBar2);
                             },
@@ -158,7 +167,8 @@ class _ProductPageState extends State<ProductPage> {
                           Expanded(
                             //Once cart button is selected confirmation message will pop up
                             child: GestureDetector(
-                              onTap: () async {
+                              onTap: () async
+                              {
                                 await _addItemToCart();
                                 Scaffold.of(context).showSnackBar(_snackBar);
                               },
