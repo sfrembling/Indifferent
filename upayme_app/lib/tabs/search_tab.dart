@@ -6,19 +6,24 @@ import 'package:upayme_app/services/firebase_services.dart';
 import 'package:upayme_app/widgets/custom_input.dart';
 import 'package:upayme_app/widgets/product_card.dart';
 
-class SearchTab extends StatefulWidget {
+class SearchTab extends StatefulWidget 
+{
 
   @override
   _SearchTabState createState() => _SearchTabState();
+  
 }
 
-class _SearchTabState extends State<SearchTab> {
+class _SearchTabState extends State<SearchTab> 
+{
+  
   FirebaseServices _firebaseServices = FirebaseServices();
 
   String _searchString = "";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Container(
       child: Stack(
         children: [
@@ -31,12 +36,15 @@ class _SearchTabState extends State<SearchTab> {
           else
           FutureBuilder<QuerySnapshot>(
             future: _firebaseServices.productsRef.orderBy("name")
+            //Boundarys of the inputed search words 
                 .startAt([_searchString])
                 .endAt(["$_searchString\ufBff"])
                 .get(),
-            builder: (context, snapshot){
+            builder: (context, snapshot)
+            {
               //Error of Image import here
-              if (snapshot.hasError) {
+              if (snapshot.hasError) 
+              {
                 return Scaffold(
                   body: Center(
                     child: Text("Error: ${snapshot.error}"),
@@ -46,13 +54,15 @@ class _SearchTabState extends State<SearchTab> {
 
               //Displaying Product data in list view
               // if(snapshot.connectionState == ConnectionState.done){
-              if(snapshot.hasData){
+              if(snapshot.hasData)
+              {
                 return ListView(
                   padding: EdgeInsets.only(
                     top: 108.0,
                     bottom: 12.0,
                   ),
-                  children: snapshot.data.docs.map((document) {
+                  children: snapshot.data.docs.map((document)
+                  {
                     return ProductCard(
                       title: document.data()['name'],
                       //imageUrl: document.data()['images'][0],
@@ -85,8 +95,10 @@ class _SearchTabState extends State<SearchTab> {
             ),
             child: CustomInput(
               hintText: "Search here. . .",
-              onSubmitted: (value){
-                 setState(() {
+              onSubmitted: (value)
+              {
+                 setState(()
+                 {
                    _searchString = value;
                  });
               },
