@@ -4,21 +4,26 @@ import 'package:upayme_app/screens/product_page.dart';
 import 'package:upayme_app/services/firebase_services.dart';
 import 'package:upayme_app/widgets/custom_actionbar.dart';
 
-class SavedTab extends StatelessWidget {
+class SavedTab extends StatelessWidget
+{
 
   final FirebaseServices _firebaseServices = FirebaseServices();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Container(
       child: Stack(
         children: [
           FutureBuilder<QuerySnapshot>(
+            //Will get the item to be saved id and place in new user doc 
             future: _firebaseServices.userRef
                 .doc(_firebaseServices.getUID())
                 .collection("Saved")
                 .get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
+            builder: (context, snapshot) 
+            {
+              if (snapshot.hasError)
+              {
                 return Scaffold(
                   body: Center(
                     child: Text("Error: ${snapshot.error}"),
@@ -27,16 +32,20 @@ class SavedTab extends StatelessWidget {
               }
 
               // Collection Data ready to display
-              if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.connectionState == ConnectionState.done) 
+              {
                 // Display the data inside a list view
                 return ListView(
                   padding: EdgeInsets.only(
                     top: 108.0,
                     bottom: 12.0,
                   ),
-                  children: snapshot.data.docs.map((document) {
+                  children: snapshot.data.docs.map((document) 
+                  {
+                    //Enables the save item buttom to be usable 
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () 
+                      {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -49,8 +58,10 @@ class SavedTab extends StatelessWidget {
                         future: _firebaseServices.productsRef
                             .doc(document.id)
                             .get(),
-                        builder: (context, productSnap) {
-                          if (productSnap.hasError) {
+                        builder: (context, productSnap)
+                        {
+                          if (productSnap.hasError) 
+                          {
                             return Container(
                               child: Center(
                                 child: Text("${productSnap.error}"),
