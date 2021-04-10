@@ -8,13 +8,16 @@ import 'package:upayme_app/widgets/custom_input.dart';
 
 
 class LoginPage extends StatefulWidget {
+  
   @override
   _LoginPageState createState() => _LoginPageState();
+  
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
   //Displaying Error message for incorrect account input
-  Future<void>_alertDialogBuilder(String error )async {
+  Future<void>_alertDialogBuilder(String error ) async {
     return showDialog(
         context: context,
         //Setting click barrier for closing error message
@@ -41,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
   }
+  
   //Will Login to User Registered Account
   Future<String>login2Account()async{
     try{
@@ -48,21 +52,31 @@ class _LoginPageState extends State<LoginPage> {
           email: _loginEmail,
           password: _loginPassword);
       return null;//if null returned user Login successful
-    }on FirebaseAuthException catch(e){
-      if (e.code == 'weak-password') {//Displaying error if unable to Login user
+    }
+    on FirebaseAuthException catch(e)
+    {
+      if (e.code == 'weak-password')
+      {
+        //Displaying error if unable to Login user
         return'The password provided is too weak.';
-      } else if (e.code == 'email-already-in-use') {
+      } 
+      else if (e.code == 'email-already-in-use') 
+      {
         return'The account already exists for that email.';
       }
       return e.message;//Returns error message
-    }catch(e){
+    }
+    catch(e)
+    {
       return e.toString();
     }
   }
 
-  void _submitForm() async{
+  void _submitForm() async
+  {
     //Will show loading dialog
-    setState(() {
+    setState(() 
+             {
       _loginFormLoading= true;
     });
     //Initiates account Login
@@ -72,7 +86,8 @@ class _LoginPageState extends State<LoginPage> {
       //will display error dialog
       _alertDialogBuilder(_login2AccountFeedback);
       //Will not display loading dialog..returns to regular state
-      setState(() {
+      setState(() 
+               {
         _loginFormLoading= false;
       });
     }//Landing page runs a check using stream Builder and advances to homepage
@@ -90,19 +105,22 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode _passwordFocusNode;
 
   @override
-  void initState(){
+  void initState() 
+  {
     _passwordFocusNode=FocusNode();
     super.initState();
   }
 
   @override
-  void dispose() {
+  void dispose()
+  {
     _passwordFocusNode.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       body: SafeArea(
       child: Container(
@@ -123,10 +141,12 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   CustomInput(
                     hintText: "Email..",
-                    onChanged: (value) {
+                    onChanged: (value)
+                    {
                       _loginEmail = value;
                     },
-                    onSubmitted: (value) {
+                    onSubmitted: (value)
+                    {
                       //Once email is submitted focus is set on password
                       _passwordFocusNode.requestFocus();
 
@@ -134,7 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   CustomInput(
                     hintText: "Password..",
-                    onChanged: (value){
+                    onChanged: (value)
+                    {
                       _loginPassword=value;
                     },
                     //Focuses on the password field Upon email entry
@@ -146,7 +167,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   CustomButton(
                     text: "Login",
-                    onPressed: (){
+                    onPressed: ()
+                    {
                       _submitForm();
                     },
                     //Activates Circle Loading feature
@@ -160,7 +182,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: CustomButton(
                   text: "Sign Up",
-                  onPressed: () {
+                  onPressed: () 
+                  {
                    Navigator.push(
                      context,
                      MaterialPageRoute(
