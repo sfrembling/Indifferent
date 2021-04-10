@@ -16,7 +16,6 @@ class SearchTab extends StatefulWidget
 
 class _SearchTabState extends State<SearchTab> 
 {
-  
   FirebaseServices _firebaseServices = FirebaseServices();
 
   String _searchString = "";
