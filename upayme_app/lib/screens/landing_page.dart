@@ -6,6 +6,7 @@ import 'package:upayme_app/screens/home_page.dart';
 import 'package:upayme_app/screens/login_page.dart';
 
 class LandingPage extends StatelessWidget {
+  
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
